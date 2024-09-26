@@ -1,3 +1,4 @@
+
 # coding: utf-8
 # license: GPLv3
 
@@ -23,6 +24,10 @@ def read_space_objects_data_from_file(input_filename):
                 star = Star()
                 parse_star_parameters(line, star)
                 objects.append(star)
+            elif object_type == "planet":
+                planet = Planet()
+                parse_planet_parameters(line, planet)
+                objects.append(planet)
             else:
                 print("Unknown space object")
 
@@ -43,8 +48,14 @@ def parse_star_parameters(line, star):
     **line** — строка с описание звезды.
     **star** — объект звезды.
     """
-
-    pass  # FIXME: not done yet
+    line1 = line.split()
+    star.R = float(line1[1])
+    star.color = line1[2]
+    star.m = float(line1[3])
+    star.x = float(line1[4])
+    star.y = float(line1[5])
+    star.Vx = float(line1[6])
+    star.Vy = float(line1[7])
 
 def parse_planet_parameters(line, planet):
     """Считывает данные о планете из строки.
@@ -61,7 +72,14 @@ def parse_planet_parameters(line, planet):
     **line** — строка с описание планеты.
     **planet** — объект планеты.
     """
-    pass  # FIXME: not done yet...
+    line1 = line.split()
+    planet.R = float(line1[1])
+    planet.color = line1[2]
+    planet.m = float(line1[3])
+    planet.x = float(line1[4])
+    planet.y = float(line1[5])
+    planet.Vx = float(line1[6])
+    planet.Vy = float(line1[7])
 
 
 def write_space_objects_data_to_file(output_filename, space_objects):
@@ -77,10 +95,7 @@ def write_space_objects_data_to_file(output_filename, space_objects):
     """
     with open(output_filename, 'w') as out_file:
         for obj in space_objects:
-            print(out_file, "%s %d %s %f" % ('1', 2, '3', 4.5))
-            # FIXME: should store real values
-
-# FIXME: хорошо бы ещё сделать функцию, сохранающую статистику в заданный файл...
+            print(out_file, "%s %d %s %f %f %f %f %f" % (obj.type, obj.R, obj.color, obj.m, obj.x, obj.y, obj.Vx, obj.Vy))
 
 if __name__ == "__main__":
     print("This module is not for direct call!")
